@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:screen_config/screen_config.dart';
 
+import '../../../widgets/customappbar.dart';
+
 class SendScreen extends StatefulWidget {
   const SendScreen({super.key});
 
@@ -18,6 +20,7 @@ class _SendScreenState extends State<SendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: buildCustomAppBar(),
       body: Column(
         children: [
           Text('Send a postcard'),
@@ -73,7 +76,7 @@ class _SendScreenState extends State<SendScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Container(
-                                    width: ScreenConfig.blockSizeHorizontal*20,
+                                      width: ScreenConfig.blockSizeHorizontal,
                                       decoration: BoxDecoration(
                                           color: Colors.amber.shade100,
                                           borderRadius: BorderRadius.all(
