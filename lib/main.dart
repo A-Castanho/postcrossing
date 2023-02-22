@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:postcrossing/screens/mainScreen.dart';
 import 'package:screen_config/screen_config.dart';
-import 'functionalities/postcard_sending/screens/send_screen.dart';
+import 'screens/send_screen.dart';
+import 'screens/sent_wall.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +29,6 @@ class AppHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenConfig.init(context);
-    return SendScreen();
+    return MyHomePage();
   }
 }

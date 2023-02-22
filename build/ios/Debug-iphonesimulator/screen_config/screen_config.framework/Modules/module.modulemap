@@ -1,0 +1,11 @@
+framework module screen_config {
+  umbrella header "screen_config-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module screen_config.Swift {
+  header "screen_config-Swift.h"
+  requires objc
+}
