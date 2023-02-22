@@ -27,23 +27,40 @@ buildCustomAppBar() {
   );
 }
 
+class PaintingStripe {
+  final Paint paint;
+  final double strokeWidth;
+  final double stripeWidth;
+
+  PaintingStripe(this.paint, this.strokeWidth, this.stripeWidth);
+}
+
 class StripedPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const double strokeWidth = 30.0;
     const double stripeWidth = strokeWidth;
-    const double stripeSpacing = strokeWidth;
 
-    final paint = Paint()
-      ..color = Colors.red
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke;
+    final paint = [
+      Paint()
+        ..color = Colors.red
+        ..strokeWidth = strokeWidth
+        ..style = PaintingStyle.stroke,
+      Paint()
+        ..color = Colors.white
+        ..strokeWidth = strokeWidth
+        ..style = PaintingStyle.stroke,
+      Paint()
+        ..color = Colors.blue
+        ..strokeWidth = strokeWidth
+        ..style = PaintingStyle.stroke
+    ];
 
     double startX = 0;
     while (startX < size.width) {
       canvas.drawLine(
           Offset(startX, 0), Offset(startX + stripeWidth, size.height), paint);
-      startX += stripeWidth + stripeSpacing;
+      startX += stripeWidth;
     }
   }
 
