@@ -16,6 +16,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Postcrossing',
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(color: Colors.black),
+          bodyText2: TextStyle(color: Colors.black),
+          headline1: TextStyle(color: Colors.black),
+          headline2: TextStyle(color: Colors.black),
+          headline3: TextStyle(color: Colors.black),
+          headline4: TextStyle(color: Colors.black),
+          headline5: TextStyle(color: Colors.black),
+          headline6: TextStyle(color: Colors.black),
+        ),
+      ),
       home: AppHome(),
     );
   }
