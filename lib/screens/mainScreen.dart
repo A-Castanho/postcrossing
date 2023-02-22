@@ -1,29 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:postcrossing/screens/sent_wall.dart';
 import 'package:screen_config/screen_config.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
-  final username = "Amanda";
+import 'home_view.dart';
 
-  final greeting = "Salam";
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedScreenIndex = 0;
+  final List _screens = [
+    {"screen": const SentWallView(), "title": "", "icon": Icon(Icons.email)},
+    {"screen": const HomeView(), "title": "", "icon": Icon(Icons.home)},
+  ];
+
+  void _selectScreen(int index) {
+    setState(() {
+      _selectedScreenIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '')
-        ]),
-        body: Column(
-          children: [
-            Text("$greeting,$username!"),
-            //TODO Slightly rotate img like a stamp
-            Container(
-              color: Colors.blue,
-              child: Text('phoyo'),
-              height: ScreenConfig.blockSizeHorizontal * 50,
-            )
-          ],
-        ));
+        appBar: AppBar(
+          title: Text(_screens[_selectedScreenIndex]["title"]),
+        ),
+        body: _screens[_selectedScreenIndex]["screen"],
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _selectedScreenIndex,
+            onTap: _selectScreen,
+            items: _screens
+                .map((e) =>
+                    BottomNavigationBarItem(icon: e['icon'], label: e['title']))
+                .toList()));
   }
 }

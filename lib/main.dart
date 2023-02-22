@@ -29,6 +29,6 @@ class AppHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenConfig.init(context);
-    return MyHomePage();
+    return MainScreen();
   }
 }
