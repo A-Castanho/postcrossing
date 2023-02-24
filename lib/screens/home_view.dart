@@ -21,7 +21,6 @@ class HomeView extends StatelessWidget {
             Text("$greeting,$username!"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
