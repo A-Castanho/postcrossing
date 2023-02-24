@@ -13,30 +13,73 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("$greeting,$username!"),
-        //TODO Slightly rotate img like a stamp
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      color: Colors.amber.shade50,
+      child: Expanded(
+        child: Column(
           children: [
-            InclinedImage(
-              angle: -0.22,
-              width: ScreenConfig.blockSizeHorizontal * 30,
-              imageUrl:
-                  "https://www.trustenablement.com/wp-content/uploads/2022/05/freepik.jpg",
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            Text("$greeting,$username!"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("$noReceived received"),
-                Text("$noSent sent"),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Container(
+                    width: ScreenConfig.blockSizeHorizontal * 30,
+                    child: InclinedImage(
+                      angle: -0.22,
+                      width: ScreenConfig.blockSizeHorizontal * 30,
+                      imageUrl:
+                          "https://www.trustenablement.com/wp-content/uploads/2022/05/freepik.jpg",
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("$noReceived received"),
+                      Divider(),
+                      Text("$noSent sent"),
+                    ],
+                  ),
+                ),
+                SizedBox.shrink()
               ],
             ),
-            SizedBox.shrink()
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  _buildGridItem(),
+                  _buildGridItem(),
+                  /*   TextButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.attach_email_rounded),
+                      label: Text('Register')), */
+                ],
+              ),
+            )
           ],
-        )
-      ],
+        ),
+      ),
     );
+  }
+
+  Expanded _buildGridItem() {
+    return Expanded(
+        child: Container(
+      decoration: BoxDecoration(
+          color: Colors.white, border: Border.all(color: Colors.grey)),
+      child: IconButton(
+        onPressed: () {},
+        icon: FittedBox(
+          child: Column(
+            children: [Icon(Icons.attach_email_rounded), Text('Send')],
+          ),
+        ),
+      ),
+    ));
   }
 }
