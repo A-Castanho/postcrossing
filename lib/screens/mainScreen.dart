@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedScreenIndex = 0;
   final List _screens = [
-    {"screen": const SentWallView(), "title": "", "icon": Icon(Icons.email)},
+    {"screen":  SentWallView(), "title": "", "icon": Icon(Icons.email)},
     {"screen": const HomeView(), "title": "", "icon": Icon(Icons.home)},
   ];
 
@@ -27,7 +27,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: SentWallView.appbar,
         body: _screens[_selectedScreenIndex]["screen"],
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedScreenIndex,

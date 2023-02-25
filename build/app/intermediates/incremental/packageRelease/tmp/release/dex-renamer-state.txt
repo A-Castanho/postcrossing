@@ -1,0 +1,4 @@
+#Fri Feb 24 19:31:04 GMT 2023
+base.0=C\:\\Users\\alina\\Desktop\\postcrossing\\postcrossing\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

@@ -1,242 +1,187 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:postcrossing/widgets/customappbar.dart';
+import 'package:postcrossing/widgets/main_view.dart';
 import 'package:screen_config/screen_config.dart';
+import 'dart:developer' as dev;
 
 import '../logic/models/postcard.dart';
+import '../widgets/hero_dialog.dart';
 
-Widget _buildFlexSpace() {
-  const int repeatCount = 10;
-  final double stepSize = 1 / (repeatCount * 3 - 1);
-  final List<double> stops =
-      List.generate(repeatCount * 3, (i) => i * stepSize);
-
-  final List<Color> colors = List.generate(repeatCount * 3, (i) {
-    if (i % 6 == 0 || i % 6 == 1) {
-      return Color(0xffd72147);
-    } else if (i % 6 == 2 || i % 6 == 3) {
-      return Colors.white;
-    } else {
-      return Color(0xff3475b9);
-    }
-  });
-  return Container(
-  decoration: BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      stops: [0.0, 0.2, 0.5, 0.8, 1.0],
-      colors: [
-        Colors.red,
-        Colors.white,
-        Colors.blue,
-        Colors.white,
-        Colors.white,
-      ],
-    ),
-  ),
-)
-;
-
-  return Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        tileMode: TileMode.repeated,
-        colors: colors,
-        stops: stops,
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        transform: GradientRotation(-45 * pi / 180),
-      ),
-    ),
-  );
-}
-
-class SentWallView extends StatefulWidget {
-  static final appbar = AppBar(
-      title: Text('My App'),
-      backgroundColor: Colors.white, // Set the background color to white
-      elevation: 0, // Remove the shadow
-      flexibleSpace:
-          _buildFlexSpace() /* Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xffd72147),
-              Color(0xffd72147),
-              Colors.transparent,
-              Colors.transparent,
-              Color(0xff3475b9),
-              Color(0xff3475b9),
-              Colors.transparent,
-              Colors.transparent,
-              Color(0xffd72147),
-              Color(0xffd72147),
-              Colors.transparent,
-              Colors.transparent,
-              Color(0xff3475b9),
-              Color(0xff3475b9),
-              Colors.transparent,
-              Colors.transparent,
-            ],
-            stops: [
-              0.0,
-              0.2,
-              0.2,
-              0.3,
-              0.3,
-              0.5,
-              0.5,
-              1.0,
-              1.0,
-              1.2,
-              1.2,
-              1.3,
-              1.3,
-              1.5,
-              1.5,
-              2.0,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            transform: GradientRotation(-45 * pi / 180),
-          ),
-        ),
-      ) */
-      );
-
-  const SentWallView({super.key});
+class SentWallView extends StatefulWidget with MainView {
+  SentWallView({super.key});
 
   @override
   State<SentWallView> createState() => _SentWallViewState();
 }
 
 class _SentWallViewState extends State<SentWallView> {
+  final verticalPostcardWidth = ScreenConfig.blockSizeHorizontal * 23;
+  final verticalPostcardHeight = ScreenConfig.blockSizeHorizontal * 40;
+  final horizontalPostcardHeight = ScreenConfig.blockSizeHorizontal * 23;
+  final horizontalPostcardWidth = ScreenConfig.blockSizeHorizontal * 40;
+
   @override
   Widget build(BuildContext context) {
     final List postcards = List.generate(14, (i) {
       return Postcard(
-          id: 'DE-12345678',
+          id: 'DE-' + Random().nextInt(9999).toString(),
           imgPath:
-              'https://www.action-mailing.com/wp-content/uploads/2020/05/designing-a-postcard.jpg',
+              'https://marketplace.canva.com/EAFIysMXPqY/1/0/1600w/canva-white-simple-minimalist-post-card-c7OQIK8AUQ4.jpg',
           orientation: Random().nextBool()
               ? PostCardOrientation.horizontal
               : PostCardOrientation.vertical);
     });
-    var i = -1;
 
-    return GestureDetector(
-      onTap: () => setState(() {}),
-      child: SizedBox(
-        width: ScreenConfig.screenWidth,
-        height: ScreenConfig.screenHeight,
-        child: SingleChildScrollView(
-          child: Wrap(
-            alignment: WrapAlignment.spaceAround,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: postcards.map((element) {
-              i++;
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: FittedBox(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: postcards[i].orientation ==
-                                PostCardOrientation.vertical
-                            ? ScreenConfig.blockSizeHorizontal * 23
-                            : ScreenConfig.blockSizeHorizontal * 40,
-                        height: postcards[i].orientation ==
-                                PostCardOrientation.vertical
-                            ? ScreenConfig.blockSizeHorizontal * 40
-                            : ScreenConfig.blockSizeHorizontal * 23,
-                        child: Container(
-                          width: 100,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.shade600,
-                                    spreadRadius: 0.1,
-                                    blurRadius: 7)
-                              ],
-                              border: Border.all(color: Colors.white),
-                              image: DecorationImage(
-                                  image: NetworkImage(postcards[i].imgPath),
-                                  fit: BoxFit.fill)),
-                          child: Text(i.toString()),
-                          /*   color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                              .withOpacity(1.0), */
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(postcards[i].id)
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-            /* children: [
-            
-              Flexible(
-                child: SizedBox(
-                  width: ScreenConfig.blockSizeHorizontal * 55,
-                  height: ScreenConfig.blockSizeVertical * 23,
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    color: Colors.red,
-                  ),
-                ),
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: Container(
+          color: Colors.white,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: TextButton(
+                    onPressed: () => setState(() {}), child: Text('Favorites')),
               ),
-              Flexible(
-                child: SizedBox(
-                  width: ScreenConfig.blockSizeHorizontal * 40,
-                  height: ScreenConfig.blockSizeVertical * 45,
-                  child: Container(
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  width: ScreenConfig.blockSizeHorizontal * 40,
-                  height: ScreenConfig.blockSizeVertical * 25,
-                  child: Container(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  width: ScreenConfig.blockSizeHorizontal * 40,
-                  height: ScreenConfig.blockSizeVertical * 30,
-                  child: Container(
-                    color: Colors.orange,
-                  ),
-                ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  width: ScreenConfig.blockSizeHorizontal * 40,
-                  height: ScreenConfig.blockSizeVertical * 25,
-                  child: Container(
-                    color: Colors.purple,
-                  ),
-                ),
-              ),
-              Flexible(
-                child: SizedBox(
-                  width: ScreenConfig.blockSizeHorizontal * 60,
-                  height: ScreenConfig.blockSizeVertical * 45,
-                  child: Container(
-                    color: Colors.yellow,
-                  ),
-                ),
-              ),
+              Expanded(
+                  child: TextButton(
+                      onPressed: () => setState(() {}), child: Text('Sent'))),
+              Expanded(
+                child: TextButton(
+                    onPressed: () => setState(() {}), child: Text('Received')),
+              )
             ],
-          */
           ),
+        ),
+      ),
+      body: GestureDetector(
+        onTap: () => setState(() {}),
+        child: SizedBox(
+          width: ScreenConfig.screenWidth,
+          height: ScreenConfig.screenHeight,
+          child: SingleChildScrollView(
+            child: Wrap(
+              alignment: WrapAlignment.spaceAround,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: postcards.map((element) {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: FittedBox(
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              new HeroDialogRoute(
+                                builder: (BuildContext context) {
+                                  return new Center(
+                                    child: _buildPostcard(element, size: 2.5),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: _buildPostcard(element),
+                        ),
+                        SizedBox(height: 5),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+              /* children: [
+              
+                Flexible(
+                  child: SizedBox(
+                    width: ScreenConfig.blockSizeHorizontal * 55,
+                    height: ScreenConfig.blockSizeVertical * 23,
+                    child: Container(
+                      width: 100,
+                      height: 50,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    width: ScreenConfig.blockSizeHorizontal * 40,
+                    height: ScreenConfig.blockSizeVertical * 45,
+                    child: Container(
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    width: ScreenConfig.blockSizeHorizontal * 40,
+                    height: ScreenConfig.blockSizeVertical * 25,
+                    child: Container(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    width: ScreenConfig.blockSizeHorizontal * 40,
+                    height: ScreenConfig.blockSizeVertical * 30,
+                    child: Container(
+                      color: Colors.orange,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    width: ScreenConfig.blockSizeHorizontal * 40,
+                    height: ScreenConfig.blockSizeVertical * 25,
+                    child: Container(
+                      color: Colors.purple,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: SizedBox(
+                    width: ScreenConfig.blockSizeHorizontal * 60,
+                    height: ScreenConfig.blockSizeVertical * 45,
+                    child: Container(
+                      color: Colors.yellow,
+                    ),
+                  ),
+                ),
+              ],
+            */
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Hero _buildPostcard(Postcard element, {double size = 1.0}) {
+    return Hero(
+      tag: 'postcard${element.id}',
+      child: SizedBox(
+        width: element.orientation == PostCardOrientation.vertical
+            ? verticalPostcardWidth * size
+            : horizontalPostcardWidth * size,
+        height: element.orientation == PostCardOrientation.vertical
+            ? verticalPostcardHeight * size
+            : horizontalPostcardHeight * size,
+        child: Container(
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.shade600,
+                    spreadRadius: 0.1,
+                    blurRadius: 7)
+              ],
+              border: Border.all(color: Colors.white),
+              image: DecorationImage(
+                  image: NetworkImage(element.imgPath), fit: BoxFit.fill)),
+          /*   color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
+                                .withOpacity(1.0), */
         ),
       ),
     );

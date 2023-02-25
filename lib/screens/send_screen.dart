@@ -20,7 +20,6 @@ class _SendScreenState extends State<SendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildCustomAppBar(),
       body: Column(
         children: [
           Text('Send a postcard'),
