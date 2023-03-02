@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:postcrossing/screens/mainScreen.dart';
 import 'package:screen_config/screen_config.dart';
 import 'screens/send_screen.dart';
-import 'screens/sent_wall.dart';
+import 'screens/main_views/wall_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(color: Colors.black),
         ),
       ),
-      home: AppHome(),
+      routes: {
+        '/': (context) => AppHome(),
+        SendScreen.name: (context) => const SendScreen(),
+      },
     );
   }
 }

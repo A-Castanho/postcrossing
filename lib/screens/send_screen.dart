@@ -4,6 +4,7 @@ import 'package:screen_config/screen_config.dart';
 import '../widgets/customappbar.dart';
 
 class SendScreen extends StatefulWidget {
+  static const name = 'send_screen';
   const SendScreen({super.key});
 
   @override
@@ -20,6 +21,7 @@ class _SendScreenState extends State<SendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Column(
         children: [
           Text('Send a postcard'),
@@ -56,12 +58,20 @@ class _SendScreenState extends State<SendScreen> {
                           ],
                         ),
                       ),
-                      Checkbox(
-                        value: false,
-                        onChanged: (value) => setState(() {
-                          print(value);
-                          _agreedTerms = value ?? false;
-                        }),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: false,
+                            onChanged: (value) => setState(() {
+                              print(value);
+                              _agreedTerms = value ?? false;
+                            }),
+                          ),
+                          Text(
+                            "I've read the notes above and want to receive an address to where I'll send a postcard.",
+                            maxLines: 2,
+                          )
+                        ],
                       ),
                       ElevatedButton.icon(
                           onPressed: () {
