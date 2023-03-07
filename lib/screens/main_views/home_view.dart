@@ -5,7 +5,7 @@ import 'package:screen_config/screen_config.dart';
 
 import '../../content/image_routes.dart';
 import '../../widgets/inclined_picture.dart';
-import '../send_screen.dart';
+import '../postcard_exchange/send/send_terms_screen.dart';
 
 final homeView = MainViewData(
     view: const HomeViewBody(),
@@ -88,8 +88,14 @@ class HomeViewBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _buildGridItem(context),
-          _buildGridItem(context),
+          _buildGridItem(context, onTap: () {
+            try {} on Exception catch (e) {
+              // TODO
+            }
+          }),
+          _buildGridItem(context, onTap: () {
+            Navigator.of(context).pushNamed(SendTermsScreen.name);
+          }),
           /*   TextButton.icon(
                       onPressed: () {},
                       icon: Icon(Icons.attach_email_rounded),
@@ -99,15 +105,14 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 
-  Widget _buildGridItem(BuildContext context) {
+  Widget _buildGridItem(BuildContext context,
+      {required Null Function() onTap}) {
     return Expanded(
         child: Container(
       decoration: BoxDecoration(
           color: Colors.white, border: Border.all(color: Colors.grey)),
       child: IconButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(SendScreen.name);
-        },
+        onPressed: onTap,
         icon: FittedBox(
           child: Column(
             children: [Icon(Icons.attach_email_rounded), Text('Send')],
@@ -115,5 +120,17 @@ class HomeViewBody extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Widget _buildInfoItem(String s) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      minLeadingWidth: 1,
+      leading: Icon(Icons.adjust_sharp),
+      title: Text(
+        s,
+        style: TextStyle(),
+      ),
+    );
   }
 }

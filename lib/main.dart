@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:postcrossing/screens/mainScreen.dart';
+import 'package:postcrossing/screens/postcard_exchange/send/send_screen.dart';
 import 'package:screen_config/screen_config.dart';
-import 'screens/send_screen.dart';
+import 'screens/postcard_exchange/send/send_terms_screen.dart';
 import 'screens/main_views/wall_view.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,19 +20,20 @@ class MyApp extends StatelessWidget {
       title: 'Postcrossing',
       theme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-        textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black),
-          bodyText2: TextStyle(color: Colors.black),
-          headline1: TextStyle(color: Colors.black),
-          headline2: TextStyle(color: Colors.black),
-          headline3: TextStyle(color: Colors.black),
-          headline4: TextStyle(color: Colors.black),
-          headline5: TextStyle(color: Colors.black),
-          headline6: TextStyle(color: Colors.black),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.black),
+          bodyMedium: TextStyle(color: Colors.black),
+          displayLarge: TextStyle(color: Colors.black),
+          displayMedium: TextStyle(color: Colors.black),
+          displaySmall: TextStyle(color: Colors.black),
+          headlineMedium: TextStyle(color: Colors.black),
+          headlineSmall: TextStyle(color: Colors.black),
+          titleLarge: TextStyle(color: Colors.black),
         ),
       ),
       routes: {
-        '/': (context) => AppHome(),
+        '/': (context) => const AppHome(),
+        SendTermsScreen.name: (context) => const SendTermsScreen(),
         SendScreen.name: (context) => const SendScreen(),
       },
     );
@@ -46,6 +48,6 @@ class AppHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenConfig.init(context);
-    return MainScreen();
+    return const MainScreen();
   }
 }

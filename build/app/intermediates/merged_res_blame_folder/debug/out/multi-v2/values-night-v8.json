@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\alina\\Desktop\\postcrossing\\postcrossing\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\alina\\Documents\\software_development\\flutter_apps\\postcrossing\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\alina\\Desktop\\postcrossing\\postcrossing\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\alina\\Documents\\software_development\\flutter_apps\\postcrossing\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
